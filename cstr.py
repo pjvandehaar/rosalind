@@ -15,20 +15,12 @@ CGTCTATC
 11101
 00001
 11111
-==
-+ ignore "trivials" (0,1,4,5 of one character)
-+ ignore repeats?
 '''
-
-def binarize_character(ch):
-    return list(int(elem == ch[0]) for elem in ch)
 
 from sys import stdin
 lines = stdin.readlines()
-characters = zip(*lines)
-characters = list(binarize_character(ch) for ch in characters)
 
-for ch in characters:
-    if 1 < sum(ch) < len(ch)-1:
-        print(''.join(map(str, ch)))
-        
+for ch in zip(*lines):
+    binary = list(int(elem==ch[0]) for elem in ch)
+    if 1 < sum(binary) < len(binary)-1:
+        print(*binary, sep='')

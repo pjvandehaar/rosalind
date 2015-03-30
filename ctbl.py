@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
 
 from Bio import Phylo
+import sys
 
-tree = next(Phylo.parse('rosalind_ctbl.txt', 'newick'))
+tree = next(Phylo.parse(sys.stdin, 'newick'))
 all_terminals = sorted(terminal.name for terminal in tree.get_terminals())
 
 for clade in tree.depths():

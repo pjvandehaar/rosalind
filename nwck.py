@@ -12,6 +12,7 @@ from Bio import Phylo
 import io
 import sys
 
+
 def padded_pairs(l):
     '''[1,2,3,4,5,6] => [(1,2), (4,5)]'''
     itr = iter(l)
@@ -19,8 +20,14 @@ def padded_pairs(l):
         yield (next(itr), next(itr))
         next(itr)
 
-with sys.stdin as f:
-    for tree_string, nodes in padded_pairs(f.readlines()):
-        tree = Phylo.read(io.StringIO(tree_string), 'newick')
-        node1, node2 = nodes.split()
-        print(int(tree.distance(node1, node2)), end=' ')
+for tree_string, nodes in padded_pairs(sys.stdin.readlines()):
+    tree = Phylo.read(io.StringIO(tree_string), 'newick')
+    print(int(tree.distance(*nodes.split())), end=' ')
+
+'''
+lines = sys.stdin.readlines()
+for i in range(0, len(lines), 3):
+    tree_string, nodes = lines[i:i+2]
+    tree = Phylo.read(io.StringIO(tree_string), 'newick')
+    print(int(tree.distance(*nodes.split())), end=' ')
+'''
