@@ -8,6 +8,11 @@ Given: A collection of k (k≤100) DNA strings of length at most 1 kbp each in F
 Return: A longest common substring of the collection. (If multiple solutions exist, you may return any single solution.)
 '''
 
+from Bio import SeqIO
+import sys
+seqs = list(str(record.seq) for record in SeqIO.parse(sys.stdin, 'fasta'))
+s = seqs.pop()
+
 def common_seq_of_length(seq_length):
     for start_pos in range(0, len(s)-seq_length+1):
         if all(-1 != seq.find(s[start_pos:start_pos+seq_length]) for seq in seqs):
